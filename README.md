@@ -83,13 +83,14 @@ Instagram Business account linked to your Page, and writes both
 
 In the repo's **Settings → Secrets and variables → Actions**, add:
 
-| Secret | Source |
-| --- | --- |
-| `IG_ACCESS_TOKEN` | from `.env` after `setup-token` |
-| `IG_BUSINESS_ACCOUNT_ID` | from `.env` after `setup-token` |
-| `META_APP_ID` | from your Meta app |
-| `META_APP_SECRET` | from your Meta app |
-| `GH_TOKEN` | a PAT — see note below |
+| Secret | Source | Used by |
+| --- | --- | --- |
+| `ANTHROPIC_API_KEY` | https://console.anthropic.com/settings/keys | `generate.yml` (caption generation) |
+| `META_APP_ID` | Meta app → Settings → Basic | `refresh-token.yml` |
+| `META_APP_SECRET` | Meta app → Settings → Basic | `refresh-token.yml` |
+| `IG_ACCESS_TOKEN` | from `.env` after `npm run setup-token` | `post.yml`, `refresh-token.yml` |
+| `IG_BUSINESS_ACCOUNT_ID` | from `.env` after `npm run setup-token` | `post.yml` |
+| `GH_TOKEN` | PAT — see note below | `refresh-token.yml` (rotates `IG_ACCESS_TOKEN`) |
 
 **`GH_TOKEN`** must be a personal access token, not the auto-provided
 `GITHUB_TOKEN` (which lacks permission to update Actions secrets):
@@ -269,7 +270,7 @@ link `_base.css` for the shared brand variables/resets, then reference it in
 | `npm run setup-token` | One-time: short-lived → long-lived + discover IG account. |
 | `npm run refresh-token` | Rotate `IG_ACCESS_TOKEN` GitHub secret. |
 | `npm run validate-queue` | Sanity-check `queue.json` against IG limits. |
-| `npm run generate [n]` | Produce `n` drafts (default 1) via Anthropic + Replicate. |
+| `npm run generate [n]` | Produce `n` drafts (default 1) via Anthropic + local template renderer. |
 | `npm run review` | Interactive draft review loop. |
 
 ## Gotchas

@@ -1,0 +1,35 @@
+/* Shared variables and resets for Sitewisers 1080x1080 tiles. */
+:root {
+  --bg: #0A0A0A;
+  --accent: #CCFF00;
+  --text: #FFFFFF;
+  --muted: rgba(255, 255, 255, 0.55);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 1080px;
+  height: 1080px;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wordmark {
+  position: absolute;
+  bottom: 80px;
+  right: 96px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}

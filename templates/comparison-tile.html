@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="_base.css" />
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 96px 80px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr;
+        gap: 48px;
+        width: 100%;
+        align-items: start;
+      }
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .label {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 26px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .col.right .label {
+        color: var(--accent);
+      }
+      ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      li {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 500;
+        font-size: 40px;
+        line-height: 1.18;
+        letter-spacing: -0.01em;
+        color: var(--text);
+      }
+      .col.left li {
+        color: var(--muted);
+      }
+      .divider {
+        background: var(--accent);
+        opacity: 0.6;
+        width: 1px;
+        height: 480px;
+        align-self: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="col left">
+        <div class="label">{{left_label}}</div>
+        <ul>
+          <li>{{left_1}}</li>
+          <li>{{left_2}}</li>
+          <li>{{left_3}}</li>
+        </ul>
+      </div>
+      <div class="divider"></div>
+      <div class="col right">
+        <div class="label">{{right_label}}</div>
+        <ul>
+          <li>{{right_1}}</li>
+          <li>{{right_2}}</li>
+          <li>{{right_3}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="wordmark">SITEWISERS</div>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="_base.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 100px;
+      }
+      .niche {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        color: var(--accent);
+        font-size: 84px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-bottom: 56px;
+      }
+      .statement {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 74px;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: var(--text);
+      }
+      .statement div + div {
+        margin-top: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="niche">{{niche}}</div>
+    <div class="statement">
+      <div>{{statement_line_1}}</div>
+      <div>{{statement_line_2}}</div>
+    </div>
+    <div class="wordmark">SITEWISERS</div>
+  </body>
+</html>

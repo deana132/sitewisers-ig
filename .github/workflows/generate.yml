@@ -1,0 +1,50 @@
+name: Generate weekly drafts
+
+on:
+  schedule:
+    - cron: "0 12 * * 0"
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "Number of drafts to generate"
+        required: false
+        default: "14"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-generate
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate drafts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node src/generate-post.js ${{ github.event.inputs.count || 14 }}
+
+      - name: Commit drafts + images + topic-bank
+        run: |
+          if git diff --quiet content/; then
+            echo "No new content generated."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/drafts.json content/topic-bank.json content/images/
+          git commit -m "chore(drafts): weekly batch [skip ci]"
+          git push

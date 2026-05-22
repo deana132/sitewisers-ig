@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="_base.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 100px;
+      }
+      .accent-bar {
+        width: 80px;
+        height: 4px;
+        background: var(--accent);
+        margin-bottom: 48px;
+      }
+      .quote {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        color: var(--text);
+        font-size: 64px;
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        max-width: 880px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="accent-bar"></div>
+    <div class="quote">{{quote}}</div>
+    <div class="wordmark">SITEWISERS</div>
+  </body>
+</html>

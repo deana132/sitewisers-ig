@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="_base.css" />
+    <style>
+      /*
+        screenshot_path must resolve from the rendered HTML. The safest value
+        is a data:image/...;base64,... URL because Puppeteer's setContent uses
+        about:blank as the base, which blocks relative paths and file:// URLs.
+        The generator should pre-encode the screenshot before passing it in.
+      */
+      body {
+        display: grid;
+        grid-template-rows: 756px 324px;
+      }
+      .device {
+        background: var(--bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 32px 0 0;
+      }
+      .phone {
+        position: relative;
+        width: 360px;
+        height: 720px;
+        background: #111;
+        border: 8px solid rgba(204, 255, 0, 0.18);
+        border-radius: 44px;
+        overflow: hidden;
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.04),
+          0 30px 80px rgba(0, 0, 0, 0.7);
+      }
+      .phone::before {
+        content: "";
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 110px;
+        height: 28px;
+        background: #000;
+        border-radius: 16px;
+        z-index: 2;
+      }
+      .screen {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .footer {
+        background: var(--bg);
+        padding: 56px 96px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 14px;
+      }
+      .client {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 68px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: var(--accent);
+      }
+      .line {
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        font-size: 30px;
+        color: var(--text);
+        line-height: 1.3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="device">
+      <div class="phone">
+        <img class="screen" src="{{screenshot_path}}" alt="" />
+      </div>
+    </div>
+    <div class="footer">
+      <div class="client">{{client_name}}</div>
+      <div class="line">{{outcome_line}}</div>
+      <div class="line">{{price_line}}</div>
+    </div>
+    <div class="wordmark">SITEWISERS</div>
+  </body>
+</html>

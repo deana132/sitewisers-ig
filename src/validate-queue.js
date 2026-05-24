@@ -3,14 +3,61 @@ import path from "node:path";
 import { loadQueue } from "./queue.js";
 
 const MAX_CAPTION = 2200;
-const MAX_HASHTAGS = 30;
+const HASHTAG_MIN = 8;
+const HASHTAG_MAX = 12;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const VALID_TYPES = new Set(["image", "carousel", "reel"]);
 const VALID_STATUSES = new Set(["pending", "posted", "failed"]);
 
+// US -> UK spelling pairs. Word-boundary, case-insensitive match.
+const US_UK_SPELLINGS = [
+  ["optimize", "optimise"],
+  ["optimizing", "optimising"],
+  ["optimized", "optimised"],
+  ["organize", "organise"],
+  ["organizing", "organising"],
+  ["organized", "organised"],
+  ["recognize", "recognise"],
+  ["recognized", "recognised"],
+  ["analyze", "analyse"],
+  ["analyzing", "analysing"],
+  ["analyzed", "analysed"],
+  ["customize", "customise"],
+  ["customized", "customised"],
+  ["finalize", "finalise"],
+  ["finalized", "finalised"],
+  ["realize", "realise"],
+  ["realized", "realised"],
+  ["specialize", "specialise"],
+  ["specialized", "specialised"],
+  ["prioritize", "prioritise"],
+  ["prioritized", "prioritised"],
+  ["color", "colour"],
+  ["colors", "colours"],
+  ["colored", "coloured"],
+  ["center", "centre"],
+  ["centered", "centred"],
+  ["behavior", "behaviour"],
+  ["behaviors", "behaviours"],
+  ["favor", "favour"],
+  ["favorite", "favourite"],
+  ["honor", "honour"],
+  ["labor", "labour"],
+  ["harbor", "harbour"],
+  ["defense", "defence"],
+  ["offense", "offence"],
+  ["catalog", "catalogue"],
+  ["dialog", "dialogue"],
+  ["gray", "grey"],
+  ["aluminum", "aluminium"],
+];
+
+const BANNED_WORDS = ["synergy", "leverage", "ecosystem", "circle back", "innovative"];
+
 async function main() {
   const queue = await loadQueue();
   const errors = [];
+  const warnings = [];
 
   for (const [i, post] of queue.posts.entries()) {
     const ctx = `posts[${i}] (id=${post.id ?? "?"})`;
@@ -38,9 +85,37 @@ async function main() {
       if (post.caption.length > MAX_CAPTION) {
         errors.push(`${ctx}: caption ${post.caption.length} chars exceeds ${MAX_CAPTION}`);
       }
+
+      // Hard reject: em-dashes (brand rule, no exceptions).
+      if (post.caption.includes("—")) {
+        errors.push(`${ctx}: caption contains em-dash (U+2014). Use a full stop or comma instead.`);
+      }
+
+      // Hard reject: hashtag count outside [8, 12].
       const hashtags = post.caption.match(/#[\p{L}\p{N}_]+/gu) ?? [];
-      if (hashtags.length > MAX_HASHTAGS) {
-        errors.push(`${ctx}: ${hashtags.length} hashtags exceeds ${MAX_HASHTAGS}`);
+      if (hashtags.length < HASHTAG_MIN || hashtags.length > HASHTAG_MAX) {
+        errors.push(
+          `${ctx}: ${hashtags.length} hashtags (need ${HASHTAG_MIN}-${HASHTAG_MAX}, target 10).`,
+        );
+      }
+
+      // Caption body without hashtag line, lower-cased, for word scans.
+      const body = stripHashtagLine(post.caption).toLowerCase();
+
+      // Warn: US-English spellings.
+      for (const [us, uk] of US_UK_SPELLINGS) {
+        const re = new RegExp(`\\b${us}\\b`, "i");
+        if (re.test(body)) {
+          warnings.push(`${ctx}: US spelling "${us}" detected. Use UK "${uk}".`);
+        }
+      }
+
+      // Warn: banned brand-voice words.
+      for (const w of BANNED_WORDS) {
+        const re = new RegExp(`\\b${w.replace(/\s+/g, "\\s+")}\\b`, "i");
+        if (re.test(body)) {
+          warnings.push(`${ctx}: banned word "${w}" detected.`);
+        }
       }
     }
 
@@ -67,13 +142,29 @@ async function main() {
     }
   }
 
+  if (warnings.length > 0) {
+    console.warn(`! ${warnings.length} warning(s):`);
+    for (const w of warnings) console.warn(`  - ${w}`);
+    console.warn("");
+  }
+
   if (errors.length === 0) {
-    console.log(`OK — validated ${queue.posts.length} post(s).`);
+    console.log(`OK: validated ${queue.posts.length} post(s).`);
     return;
   }
-  console.error(`✗ ${errors.length} validation error(s):`);
+  console.error(`x ${errors.length} validation error(s):`);
   for (const e of errors) console.error(`  - ${e}`);
   process.exit(1);
+}
+
+function stripHashtagLine(caption) {
+  const lines = caption.split("\n");
+  for (let i = lines.length - 1; i >= 0; i--) {
+    if (lines[i].trim().startsWith("#")) {
+      return lines.slice(0, i).join("\n");
+    }
+  }
+  return caption;
 }
 
 main().catch((err) => {

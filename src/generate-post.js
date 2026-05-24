@@ -33,7 +33,7 @@ VOICE
 - Never open with "In today's digital landscape" or any equivalent throat-clearing.
 - Do not write like LinkedIn.
 
-LENGTH (strictly enforced — over-length captions are rejected and you'll be asked to rewrite)
+LENGTH (strictly enforced. Over-length captions are rejected and you'll be asked to rewrite.)
 - HARD MAXIMUM 200 characters for the caption body before the hashtag block. Count characters, not words.
 - Target window: 100 to 180 characters. Tighter wins.
 - Prefer fewer lines of punchier copy over more lines of softer copy.
@@ -152,7 +152,7 @@ function pickAngle(bank, recentCategories = [], recentNiches = []) {
   const cooldownMs = COOLDOWN_DAYS * 86_400_000;
 
   const blockedCats = new Set(recentCategories.slice(-RECENT_CATEGORY_BLOCK));
-  // "all" is a wildcard niche — never add it to the block set, otherwise picking
+  // "all" is a wildcard niche. Never add it to the block set, otherwise picking
   // one pain post would lock out every other "all"-niche angle.
   const blockedNiches = new Set(
     recentNiches.slice(-RECENT_NICHE_BLOCK).filter((n) => n && n !== "all"),
@@ -318,7 +318,7 @@ async function callAnthropic(messages) {
       return text;
     } catch (err) {
       lastErr = err;
-      // Don't retry on terminal 4xx (auth, bad request, etc) — only 429 is worth retrying.
+      // Don't retry on terminal 4xx (auth, bad request, etc). Only 429 is worth retrying.
       const terminal = err.status && err.status >= 400 && err.status < 500 && err.status !== 429;
       if (terminal || attempt >= ANTHROPIC_MAX_ATTEMPTS) throw err;
       const delayMs = 1000 * 2 ** (attempt - 1); // 1s, 2s, 4s

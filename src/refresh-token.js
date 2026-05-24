@@ -3,25 +3,39 @@ import { GRAPH_BASE } from "./instagram.js";
 
 const GITHUB_API = "https://api.github.com";
 const SECRET_NAME = "IG_ACCESS_TOKEN";
+const DRY_RUN = process.argv.includes("--dry-run");
 
 async function main() {
+  if (DRY_RUN) {
+    console.log("DRY-RUN: no secret will be written. Old token stays active.");
+  }
+
   const appId = required("META_APP_ID");
   const appSecret = required("META_APP_SECRET");
   const currentToken = required("IG_ACCESS_TOKEN");
   const ghToken = required("GH_TOKEN");
   const repo = required("GITHUB_REPOSITORY");
 
-  console.log("→ Refreshing long-lived token...");
+  console.log(`-> Refreshing long-lived token...`);
   const refreshed = await refreshToken(currentToken, appId, appSecret);
   const expiresInDays = Math.round((refreshed.expires_in ?? 0) / 86400);
-  console.log(`  ok (expires in ~${expiresInDays} days)`);
+  console.log(`   ok (would expire in ~${expiresInDays} days)`);
 
-  console.log(`→ Fetching public key for ${repo}...`);
+  console.log(`-> Fetching public key for ${repo}...`);
   const { key_id, key } = await getPublicKey(repo, ghToken);
+  console.log(`   ok (key_id=${key_id.slice(0, 12)}...)`);
 
-  console.log(`→ Encrypting and uploading ${SECRET_NAME}...`);
+  if (DRY_RUN) {
+    console.log(`-> Skipping secret update (--dry-run).`);
+    console.log(`   would PUT /repos/${repo}/actions/secrets/${SECRET_NAME}`);
+    console.log(`   payload: encrypted_value=<libsodium sealed>, key_id=${key_id.slice(0, 12)}...`);
+    console.log(`DRY-RUN complete. All read steps verified. No mutation performed.`);
+    return;
+  }
+
+  console.log(`-> Encrypting and uploading ${SECRET_NAME}...`);
   await updateSecret(repo, ghToken, SECRET_NAME, refreshed.access_token, key_id, key);
-  console.log("  ok");
+  console.log(`   ok`);
 
   console.log("Token rotated.");
 }

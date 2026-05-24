@@ -3,9 +3,9 @@
 // are preserved by id).
 //
 // Each angle has:
-//   hook_template — instruction handed to Claude to write the caption
-//   template      — which file in templates/ to render (without .html)
-//   data          — values for {{placeholders}} in that template
+//   hook_template: instruction handed to Claude to write the caption
+//   template:      which file in templates/ to render (without .html)
+//   data:          values for {{placeholders}} in that template
 //
 // Available templates and their data shape:
 //   stat-tile       { stat, caption }
@@ -187,7 +187,7 @@ export const TOPIC_BANK = [
     category: "niche",
     niche: "pt",
     hook_template:
-      "PT angle: niche personal trainers — postnatal, athletes, over-50s, hybrid lifters — book out faster than generalists. The site needs to lead with the niche, not 'one-to-one personal training'.",
+      "PT angle: niche personal trainers (postnatal, athletes, over-50s, hybrid lifters) book out faster than generalists. The site needs to lead with the niche, not 'one-to-one personal training'.",
     template: "stat-tile",
     data: {
       stat: "3x",
@@ -1016,6 +1016,563 @@ export const TOPIC_BANK = [
       "Observation: stock photos are a tell. Generic smiling team. Generic handshake. Generic laptop. Visitors clock it instantly and trust evaporates. Real photos or none.",
     template: "quote-tile",
     data: { quote: "Stock photos are a tell. Visitors clock it instantly." },
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // EXPANSION BATCH (autonomous push, 2026-05-24)
+  // 46 angles: under-rep niches, seasonal, mobile UX pain, more demos, UK stats
+  // ═══════════════════════════════════════════════════════════════════
+
+  // ───── NAILS (more) ─────
+  {
+    id: "nails-technique-keywords",
+    category: "niche",
+    niche: "nails",
+    hook_template:
+      "Nail salon angle: rank for the technique plus town. 'Russian manicure Reading'. 'BIAB Wokingham'. 'Builder gel Maidenhead'. Technique searchers convert. Generic searchers do not.",
+    template: "quote-tile",
+    data: { quote: "Russian manicure Reading. BIAB Wokingham. Rank for what they search." },
+  },
+  {
+    id: "nails-cancellation-policy",
+    category: "niche",
+    niche: "nails",
+    hook_template:
+      "Nail salon angle: missed appointments cost an hour of chair time. Your cancellation policy belongs on the booking page, not buried in T&Cs. Set the expectation up front.",
+    template: "quote-tile",
+    data: { quote: "Your cancellation policy belongs on the booking page. Not in the small print." },
+  },
+
+  // ───── BARBERS (more) ─────
+  {
+    id: "barbers-walk-in-or-book",
+    category: "niche",
+    niche: "barber",
+    hook_template:
+      "Barber angle: clear up walk-in vs booking on page one. Half your visitors want a same-day chair, half want to plan. One sentence solves it. Most sites leave both groups guessing.",
+    template: "comparison-tile",
+    data: {
+      left_label: "What sites do",
+      left_1: "Walk-in?",
+      left_2: "Or booking?",
+      left_3: "Visitors guess",
+      right_label: "What sites should",
+      right_1: "Walk-in 9-2",
+      right_2: "Booking 2-7",
+      right_3: "One clear line",
+    },
+  },
+  {
+    id: "barbers-instagram-portfolio",
+    category: "niche",
+    niche: "barber",
+    hook_template:
+      "Barber angle: stop writing 'skilled in all modern styles'. Show twelve recent cuts. Visual proof beats every adjective. The site becomes a portfolio, not a brochure.",
+    template: "quote-tile",
+    data: { quote: "Stop writing about cuts. Show twelve." },
+  },
+
+  // ───── BEAUTICIANS (more) ─────
+  {
+    id: "beauticians-treatment-glossary",
+    category: "niche",
+    niche: "beautician",
+    hook_template:
+      "Beautician angle: 'CACI'. 'HIFU'. 'LED light therapy'. Most clients have no idea what these acronyms mean. Plain-English explanations on every treatment page. Trust through clarity.",
+    template: "quote-tile",
+    data: { quote: "Explain the acronyms. CACI. HIFU. LED. Clients won't ask, they'll just leave." },
+  },
+  {
+    id: "beauticians-loyalty-on-site",
+    category: "niche",
+    niche: "beautician",
+    hook_template:
+      "Beautician angle: your loyalty programme deserves a page. Sixth treatment free. Birthday discount. Referral credit. Most beauty sites hide these in a footer link.",
+    template: "niche-callout",
+    data: {
+      niche: "Beauticians.",
+      statement_line_1: "Your loyalty programme",
+      statement_line_2: "deserves a page.",
+    },
+  },
+
+  // ───── CLEANERS (more) ─────
+  {
+    id: "cleaners-domestic-vs-commercial",
+    category: "niche",
+    niche: "cleaner",
+    hook_template:
+      "Cleaning services angle: domestic clients and commercial clients want different things. Two homepages. Two pricing pages. One site trying to do both fails both audiences.",
+    template: "comparison-tile",
+    data: {
+      left_label: "Domestic clients want",
+      left_1: "Hourly pricing",
+      left_2: "Weekly slots",
+      left_3: "Friendly tone",
+      right_label: "Commercial clients want",
+      right_1: "Contract terms",
+      right_2: "Out-of-hours",
+      right_3: "Insurance proof",
+    },
+  },
+  {
+    id: "cleaners-insurance-shown",
+    category: "niche",
+    niche: "cleaner",
+    hook_template:
+      "Cleaning angle: public liability cover. Treasury Bond. DBS. Insurance proof in the header builds instant trust. Most cleaners list it on an 'about' page nobody reads.",
+    template: "quote-tile",
+    data: { quote: "Insurance details belong in the header. Not the about page." },
+  },
+
+  // ───── ACCOUNTANTS (more) ─────
+  {
+    id: "accountants-mtd-content",
+    category: "niche",
+    niche: "accountant",
+    hook_template:
+      "Accountants angle: Making Tax Digital is the biggest UK accounting search trend in five years. Most accountant sites have zero MTD content. Free traffic sitting on the table.",
+    template: "stat-tile",
+    data: {
+      stat: "MTD",
+      caption: "Making Tax Digital. The biggest UK accounting search trend in five years. You're nowhere on it.",
+    },
+  },
+  {
+    id: "accountants-free-first-call",
+    category: "niche",
+    niche: "accountant",
+    hook_template:
+      "Accountants angle: 'Free 20-minute first call' on the homepage CTA outperforms 'Get a quote' every time. Lower friction. Higher booking rate. Same conversion downstream.",
+    template: "quote-tile",
+    data: { quote: "'Free 20-min first call' beats 'Get a quote'. Every time." },
+  },
+
+  // ───── ELECTRICIANS (more) ─────
+  {
+    id: "electricians-ev-charger",
+    category: "niche",
+    niche: "electrician",
+    hook_template:
+      "Electrician angle: EV charger installation is the fastest-growing UK electrical service. Dedicated landing page per town. OZEV grant info. Tesla, ChargePoint, Pod Point logos for trust.",
+    template: "niche-callout",
+    data: {
+      niche: "Electricians.",
+      statement_line_1: "EV charger installs.",
+      statement_line_2: "Build the page. Win the area.",
+    },
+  },
+  {
+    id: "electricians-pat-testing",
+    category: "niche",
+    niche: "electrician",
+    hook_template:
+      "Electrician angle: PAT testing for businesses is recurring revenue. Annual contracts. Easy upsell from one-off installs. Most electricians do not even list it as a service.",
+    template: "quote-tile",
+    data: { quote: "PAT testing is recurring revenue. Most sites don't even list it." },
+  },
+
+  // ───── PAIN: MOBILE UX ─────
+  {
+    id: "pain-tap-targets-too-small",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: tap targets under 44 pixels miss on mobile. Apple's HIG. Google's MUI. Your phone-number link, your CTA button, your menu icon. If a thumb misses, you lose the call.",
+    template: "stat-tile",
+    data: {
+      stat: "44px",
+      caption: "Minimum tap target. Anything smaller and thumbs miss it.",
+    },
+  },
+  {
+    id: "pain-mobile-text-tiny",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: 14px body text on mobile forces pinch-zoom. Visitors who pinch-zoom rarely come back. 16px minimum on mobile. 18px is better. Stop designing on a 27 inch monitor.",
+    template: "comparison-tile",
+    data: {
+      left_label: "Most service sites",
+      left_1: "14px body",
+      left_2: "Pinch to zoom",
+      left_3: "Visitors leave",
+      right_label: "Built for thumbs",
+      right_1: "18px body",
+      right_2: "Readable as-is",
+      right_3: "Visitors stay",
+    },
+  },
+
+  // ───── PAIN: BOOKING / CHECKOUT ─────
+  {
+    id: "pain-multi-step-booking",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: more than three steps to book and conversion halves. Most service business booking flows are five to seven steps. Cut the form fields. Skip the calendar pages. Confirm fast.",
+    template: "stat-tile",
+    data: {
+      stat: "3 steps",
+      caption: "More than three to book and conversion halves.",
+    },
+  },
+  {
+    id: "pain-account-required",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: forcing account creation before booking is the second biggest conversion killer after slow load. Guest checkout. Always. Account creation can happen after the booking.",
+    template: "quote-tile",
+    data: { quote: "Forcing account creation before booking? You just lost the booking." },
+  },
+
+  // ───── PAIN: NO ONLINE BOOKING ─────
+  {
+    id: "pain-bookings-after-hours",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: 60 percent of service business bookings happen between 6pm and 11pm. If you only take phone bookings 9 to 5, you're missing six out of every ten leads.",
+    template: "stat-tile",
+    data: {
+      stat: "60%",
+      caption: "of bookings happen 6pm to 11pm. Phone-only 9-5 misses them all.",
+    },
+  },
+  {
+    id: "pain-dm-booking-admin",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: paying a team member to handle Instagram DM bookings is the most expensive booking system you can build. A £20-a-month calendar tool replaces them. Maths obvious.",
+    template: "quote-tile",
+    data: { quote: "A team member doing DM bookings is the most expensive calendar you'll buy." },
+  },
+
+  // ───── PAIN: PHOTOGRAPHY ─────
+  {
+    id: "pain-stock-photos-trust",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: visitors spot stock photos in 0.4 seconds. The generic smiling team. The handshake. The over-saturated office shot. Trust evaporates before they read a word.",
+    template: "stat-tile",
+    data: {
+      stat: "0.4s",
+      caption: "to spot stock photography. Trust drops the same second.",
+    },
+  },
+  {
+    id: "pain-blurry-iphone-photos",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: dim, blurry iPhone shots of your salon, your workshop, your treatment room. A £200 photography session pays for itself in two bookings. Invest once, win forever.",
+    template: "quote-tile",
+    data: { quote: "A £200 photography session pays for itself in two bookings." },
+  },
+
+  // ───── PAIN: TEMPLATES ─────
+  {
+    id: "pain-template-soup",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: the same five Wix and Squarespace templates power half the UK service business internet. Your prospect saw a near-identical site twenty minutes ago. You blend in. You lose.",
+    template: "quote-tile",
+    data: { quote: "Five templates power half the UK service business internet. You're one of them." },
+  },
+  {
+    id: "pain-template-payload",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: a default Squarespace template ships 4.8MB of CSS and JS your visitors never use. A custom build for the same site loads under 400KB. Same content, twelve times the speed.",
+    template: "comparison-tile",
+    data: {
+      left_label: "Squarespace default",
+      left_1: "4.8MB payload",
+      left_2: "Slow on 4G",
+      left_3: "Bloated everywhere",
+      right_label: "Custom build",
+      right_1: "0.4MB payload",
+      right_2: "Instant on 4G",
+      right_3: "Only what you need",
+    },
+  },
+
+  // ───── PAIN: SEO ─────
+  {
+    id: "pain-missing-meta",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: half the UK service business sites we audit have no meta description, no Open Graph tags, no Twitter cards. Google guesses. Link previews look broken. Free traffic lost.",
+    template: "quote-tile",
+    data: { quote: "No meta description. Google guesses. Link previews break. Free traffic lost." },
+  },
+  {
+    id: "pain-no-local-schema",
+    category: "pain",
+    niche: "all",
+    hook_template:
+      "Pain point: LocalBusiness schema is twenty lines of JSON-LD. It tells Google your hours, your address, your phone. Without it you do not appear in the local map pack. Twenty lines.",
+    template: "stat-tile",
+    data: {
+      stat: "20 lines",
+      caption: "of JSON-LD. The difference between the map pack and invisible.",
+    },
+  },
+
+  // ───── DEMO SHOWCASES (more) ─────
+  {
+    id: "demo-forge-no-bs-cta",
+    category: "demo",
+    niche: "pt",
+    hook_template:
+      "Demo showcase: Forge PT. One CTA per page. 'Book a session'. No newsletter signup. No 'follow us'. No 'download the guide'. Single funnel. Triple the conversion of most PT sites.",
+    template: "quote-tile",
+    data: { quote: "Forge PT: one CTA per page. Book a session. That's it." },
+  },
+  {
+    id: "demo-marne-editorial-layout",
+    category: "demo",
+    niche: "beautician",
+    hook_template:
+      "Demo showcase: Marne & Lyle. Magazine-grade layout for a beauty brand. Generous type. Quiet whitespace. Cropped imagery. Reads like Vogue, ranks like Sitewisers.",
+    template: "niche-callout",
+    data: {
+      niche: "Marne & Lyle.",
+      statement_line_1: "Reads like Vogue.",
+      statement_line_2: "Ranks like Sitewisers.",
+    },
+  },
+  {
+    id: "demo-thorne-treatment-pages",
+    category: "demo",
+    niche: "dental",
+    hook_template:
+      "Demo showcase: Thorne Dental. One treatment per page. Implants. Whitening. Invisalign. Each ranking for its own keyword in its town. Local SEO done by structure, not by stuffing.",
+    template: "quote-tile",
+    data: { quote: "Thorne Dental: implants, whitening, Invisalign. Three pages. Three rankings." },
+  },
+  {
+    id: "demo-amber-oak-load",
+    category: "demo",
+    niche: "all",
+    hook_template:
+      "Demo showcase: Amber Oak hits 0.9 seconds first contentful paint on a Three 4G connection in central Bracknell. Most UK service sites take five times longer.",
+    template: "stat-tile",
+    data: {
+      stat: "0.9s",
+      caption: "Amber Oak first contentful paint. On 4G. In Bracknell.",
+    },
+  },
+  {
+    id: "demo-ridgeline-mobile-rebuild",
+    category: "demo",
+    niche: "all",
+    hook_template:
+      "Demo showcase: Ridgeline started mobile-first and let desktop inherit. The original site was the opposite. The rebuild took sixty days and tripled mobile conversion in ninety.",
+    template: "comparison-tile",
+    data: {
+      left_label: "Old Ridgeline",
+      left_1: "Desktop-first",
+      left_2: "Mobile bounce 71%",
+      left_3: "Two enquiries/wk",
+      right_label: "New Ridgeline",
+      right_1: "Mobile-first",
+      right_2: "Mobile bounce 22%",
+      right_3: "Six enquiries/wk",
+    },
+  },
+
+  // ───── SEASONAL (UK calendar) ─────
+  {
+    id: "season-january-resolution-window",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "Seasonal angle (early January): personal trainers, physios, beauticians, weight clinics. The two-week resolution window is your annual peak. If your booking flow is broken, you waste a year of marketing in fourteen days.",
+    template: "quote-tile",
+    data: { quote: "The January resolution window is fourteen days. Don't waste it on a broken booking flow." },
+  },
+  {
+    id: "season-january-tax-deadline",
+    category: "observation",
+    niche: "accountant",
+    hook_template:
+      "Seasonal angle (January): UK self-assessment deadline is 31 January. Searches for 'accountant near me' triple in the second week of January. If your site is slow or unranked, you watch the wave roll past.",
+    template: "stat-tile",
+    data: {
+      stat: "3x",
+      caption: "UK 'accountant near me' search volume in the second week of January.",
+    },
+  },
+  {
+    id: "season-spring-renovation",
+    category: "observation",
+    niche: "builder",
+    hook_template:
+      "Seasonal angle (spring): UK home renovation search peaks late February through April. Loft conversions. Extensions. Garden rooms. If you're not on page one for your town by mid-March, you've missed the booking window for the year.",
+    template: "quote-tile",
+    data: { quote: "Spring renovation search peaks. Late Feb to April. Page one by mid-March or lose the year." },
+  },
+  {
+    id: "season-summer-evening-bookings",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "Seasonal angle (UK summer): long evenings push service-business search later. Peak booking time shifts from 8pm to 10pm. Your site is the only thing open at 10pm.",
+    template: "stat-tile",
+    data: {
+      stat: "10pm",
+      caption: "UK summer peak booking time. The phone is closed. The website is open.",
+    },
+  },
+  {
+    id: "season-summer-holiday-coverage",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "Seasonal angle (UK summer): client asks 'are you open the August bank holiday?' Your site does not answer. They call a competitor. A four-line opening hours table prevents the loss.",
+    template: "quote-tile",
+    data: { quote: "Are you open the August bank holiday? If your site doesn't answer, they call someone else." },
+  },
+  {
+    id: "season-autumn-back-to-routine",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "Seasonal angle (UK autumn): September is the second January. Routines reset. Gyms fill. Beauty bookings spike. Accountants get tax-return enquiries. Be visible the first week of September.",
+    template: "quote-tile",
+    data: { quote: "September is the second January. Be visible the first week." },
+  },
+  {
+    id: "season-autumn-q4-rush",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "Seasonal angle (October): the Q4 service-business rush starts now. Christmas party hair, end-of-year accounts, pre-winter boiler checks. The site you ship in October pays you through December.",
+    template: "quote-tile",
+    data: { quote: "Ship the site in October. Bank the bookings through December." },
+  },
+  {
+    id: "season-christmas-party-bookings",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "Seasonal angle (November-December): UK Christmas party season drives one-month-out bookings for hair, nails, beauty, dental whitening. If your booking flow does not show December availability in early November, you lose to whoever's does.",
+    template: "quote-tile",
+    data: { quote: "Show December availability in early November. Or watch it book up elsewhere." },
+  },
+  {
+    id: "season-christmas-closures",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "Seasonal angle (December): the most-read page on every service-business site between 20 December and 2 January is 'opening hours'. Make sure the right Christmas hours are on the homepage, not buried.",
+    template: "quote-tile",
+    data: { quote: "20 Dec to 2 Jan: 'opening hours' is the most-read page on your site." },
+  },
+  {
+    id: "season-december-quiet-rebuild",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "Seasonal angle (late December): the quietest two weeks for builders, accountants, electricians. The best two weeks to commission your rebuild. Live by mid-January when search volume returns.",
+    template: "quote-tile",
+    data: { quote: "Late December is dead for trades. The best two weeks to rebuild the site." },
+  },
+  {
+    id: "season-bank-holiday-traffic",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "Seasonal angle (UK bank holidays): service-business search volume rises 28 percent the day before a UK bank holiday. People plan. If your site does not show holiday availability, that traffic books a competitor.",
+    template: "stat-tile",
+    data: {
+      stat: "+28%",
+      caption: "UK service search the day before a bank holiday. Plan or lose it.",
+    },
+  },
+  {
+    id: "season-new-year-rebuild-window",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "Seasonal angle (January): new-year rebuild window. Most service businesses have spare budget in Q1, before the spring rush. The site you commission in January is live and ranking by April.",
+    template: "quote-tile",
+    data: { quote: "January commission. April rank. That's the rebuild window." },
+  },
+
+  // ───── UK-SPECIFIC STATS / OBSERVATIONS ─────
+  {
+    id: "uk-ofcom-mobile-time",
+    category: "stat",
+    niche: "all",
+    hook_template:
+      "UK stat: Ofcom reports UK adults spend 3 hours 41 minutes a day on their phone. Most of that is browsing. Your homepage is competing for a sliver of that time. Make every second count.",
+    template: "stat-tile",
+    data: {
+      stat: "3h 41m",
+      caption: "UK adults on their phone, every day. (Ofcom)",
+    },
+  },
+  {
+    id: "uk-companies-house-smb-count",
+    category: "stat",
+    niche: "all",
+    hook_template:
+      "UK stat: Companies House lists 5.5 million active UK businesses. The vast majority are service businesses. Almost all have a website. Almost none of those websites convert. Huge opportunity, low bar.",
+    template: "stat-tile",
+    data: {
+      stat: "5.5M",
+      caption: "active UK businesses. Almost none have a site that converts.",
+    },
+  },
+  {
+    id: "uk-google-business-priority",
+    category: "tip",
+    niche: "all",
+    hook_template:
+      "UK tip: a complete Google Business Profile plus a fast website ranks above every paid ad for local service searches. The combination is the UK service-business cheat code in 2026.",
+    template: "quote-tile",
+    data: { quote: "Google Business Profile plus a fast site. UK service-business cheat code." },
+  },
+  {
+    id: "uk-postcode-targeting",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "UK observation: postcode-level pages outrank town-level pages. 'Electrician RG1' beats 'Electrician Reading' for half the searches. UK consumers search by postcode more than any other country.",
+    template: "quote-tile",
+    data: { quote: "UK consumers search by postcode. Build pages for it." },
+  },
+  {
+    id: "uk-consumer-local-trust",
+    category: "observation",
+    niche: "all",
+    hook_template:
+      "UK observation: 78 percent of UK consumers trust a local independent business over a national chain. Your site must signal local. Photos of the actual building. Real postcode in the footer. Owner's name.",
+    template: "stat-tile",
+    data: {
+      stat: "78%",
+      caption: "of UK consumers trust local independents over chains. Signal it everywhere.",
+    },
+  },
+  {
+    id: "uk-mobile-bank-payment",
+    category: "stat",
+    niche: "all",
+    hook_template:
+      "UK stat: 62 percent of UK consumers expect a service business to accept mobile-wallet payment. Apple Pay. Google Pay. If your booking checkout does not, you look ten years behind.",
+    template: "stat-tile",
+    data: {
+      stat: "62%",
+      caption: "of UK consumers expect Apple Pay or Google Pay at checkout.",
+    },
   },
 ].map((angle) => ({
   ...angle,

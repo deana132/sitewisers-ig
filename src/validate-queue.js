@@ -1,6 +1,7 @@
 import { access } from "node:fs/promises";
 import path from "node:path";
 import { loadQueue } from "./queue.js";
+import { CTA_BLOCK } from "./cta.js";
 
 const MAX_CAPTION = 2200;
 const HASHTAG_MIN = 8;
@@ -97,6 +98,19 @@ async function main() {
         errors.push(
           `${ctx}: ${hashtags.length} hashtags (need ${HASHTAG_MIN}-${HASHTAG_MAX}, target 10).`,
         );
+      }
+
+      // Hard reject: pending/failed posts must end with the audit CTA block.
+      // Posted posts are historical and skipped (they were generated pre-CTA).
+      if (post.status === "pending" || post.status === "failed") {
+        if (!post.caption.trimEnd().endsWith(CTA_BLOCK.trim())) {
+          errors.push(
+            `${ctx}: caption does not end with CTA_BLOCK. ` +
+              `Run generate-post for a fresh draft, or edit caption to append the CTA.`,
+          );
+        }
+      } else if (post.status === "posted" && !post.caption.trimEnd().endsWith(CTA_BLOCK.trim())) {
+        warnings.push(`${ctx}: historical post lacks CTA (generated pre-CTA). Informational only.`);
       }
 
       // Caption body without hashtag line, lower-cased, for word scans.

@@ -4,6 +4,7 @@ import { randomUUID } from "node:crypto";
 import path from "node:path";
 import { TOPIC_BANK } from "./topic-bank.js";
 import { renderImage } from "./render-image.js";
+import { CTA_BLOCK } from "./cta.js";
 
 const TOPIC_BANK_PATH = path.resolve("content/topic-bank.json");
 const DRAFTS_PATH = path.resolve("content/drafts.json");
@@ -219,9 +220,10 @@ function findNextSlots(count, drafts, queue) {
 }
 
 async function generateOne(angle, slot, drafts) {
-  console.log("  → caption (Anthropic)...");
-  const caption = await generateCaption(angle);
-  console.log(`  → image (template: ${angle.template})...`);
+  console.log("  -> caption (Anthropic)...");
+  const claudeCaption = await generateCaption(angle);
+  const caption = appendCta(claudeCaption);
+  console.log(`  -> image (template: ${angle.template})...`);
 
   const id = randomUUID();
   const absOutput = path.resolve("content/images", `${id}.png`);
@@ -340,6 +342,12 @@ function extractBody(text) {
   }
   if (hashtagIdx === -1) return text.trim();
   return lines.slice(0, hashtagIdx).join("\n").trim();
+}
+
+// Append the audit CTA after the hashtag line. Validate-queue rejects pending
+// posts that don't end with it.
+function appendCta(caption) {
+  return caption.trimEnd() + "\n\n" + CTA_BLOCK + "\n";
 }
 
 main().catch((err) => {

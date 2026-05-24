@@ -14,7 +14,8 @@
     "setup-token": "node src/setup-token.js",
     "validate-queue": "node src/validate-queue.js",
     "generate": "node src/generate-post.js",
-    "review": "node src/review-drafts.js"
+    "review": "node src/review-drafts.js",
+    "status": "node src/status.js"
   },
   "dependencies": {
     "libsodium-wrappers": "^0.7.15",
